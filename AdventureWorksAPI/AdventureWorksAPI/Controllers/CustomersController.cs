@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AdventureWorksAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AdventureWorksAPI.Controllers
 {
@@ -22,6 +23,7 @@ namespace AdventureWorksAPI.Controllers
 
         // GET: api/Customers
         [HttpGet]
+        [Authorize]
         public IEnumerable<Customer> GetCustomer()
         {
             return _context.Customer;
