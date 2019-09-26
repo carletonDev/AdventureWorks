@@ -20,6 +20,10 @@ namespace AdventureWorksAPI.Controllers
             _context = context;
         }
 
+        public ErrorLogsController()
+        {
+        }
+
         // GET: api/ErrorLogs
         [HttpGet]
         public IEnumerable<ErrorLog> GetErrorLog()

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-
 namespace AdventureWorksAPI.Models
 {
     public partial class Customer
@@ -10,7 +9,6 @@ namespace AdventureWorksAPI.Models
             CustomerAddress = new HashSet<CustomerAddress>();
             SalesOrderHeader = new HashSet<SalesOrderHeader>();
         }
-
         public int CustomerId { get; set; }
         public bool NameStyle { get; set; }
         public string Title { get; set; }
