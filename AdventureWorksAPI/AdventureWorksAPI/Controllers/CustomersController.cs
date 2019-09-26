@@ -24,7 +24,6 @@ namespace AdventureWorksAPI.Controllers
 
         // GET: api/Customers
         [HttpGet]
-        [Authorize]
         [EnableCors("AdventureWorksAPI")]
         public IEnumerable<Customer> GetCustomer()
         {
