@@ -12,7 +12,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Helpers;
+using System.Net.Http.Headers;
 using System.Xml;
 
 
@@ -21,22 +21,26 @@ namespace Import_Export
     public static class Export
     {
          public static AdventureWorksContext context { get; set; }
+         public static HttpClient client { get; set; }
         public static void ExportCustomers()
         {
-            //code school way
-            //Access the api controller 
-            context = new AdventureWorksContext();
-            //store the list of customers in the database to list
-            List<Customer> allCustomers = context.Customer.ToList();
-            //use csv serializer class to serialize all customers with a pipe delimiter
-            CsvSerializer<Customer> csv = new CsvSerializer<Customer>();
-            using (var stream = new FileStream("C:\\Customers\\allCustomers.csv",FileMode.Create,FileAccess.Write))
-            {
-                csv.Separator = '|';
-                csv.Serialize(stream, allCustomers);
-            }
-
-        
+            Customer customer = new Customer();
+            customer.customerId = 30119;
+            customer.nameStyle = false;
+            customer.title = "Mr.";
+            customer.firstName = "Carleton";
+            customer.lastName = "cabarrus";
+            customer.middleName = "lee";
+            customer.suffix = "jr";
+            customer.companyName = "ACompany";
+            customer.salesPerson = "adventure-works\\pamela0|orlando0@adventure-works.com";
+            customer.phone = "804-337-1521";
+            customer.passwordHash = new HashCode().ToString();
+            customer.passwordSalt = "salt";
+            customer.rowguid = Guid.NewGuid();
+            customer.modifiedDate = DateTime.Now;
+            string csv = ConvertJson(JsonConvert.SerializeObject(customer));
+            FileWriting.WriteStringToFile(csv, "C:\\Customers\\allCustomers.csv");
         }
         public static void ExportCustomersJSON()
         {
@@ -91,10 +95,31 @@ namespace Import_Export
 
         public static async Task<string> JsonResult(string url)
         {
-            HttpClient client = new HttpClient();
+            client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync("https://website20190926112338.azurewebsites.net/"+ url);
             return  await response.Content.ReadAsStringAsync(); 
 
+            
+        }
+        //public static async Task<Uri> PostCustomer(string url, Customer customer)
+        //{
+        //    var json = JsonConvert.SerializeObject(customer);
+            
+        //    HttpClient client = new HttpClient();
+
+        //    //HttpResponseMessage response = await client.PostAsync("https://website20190926112338.azurewebsites.net/" + url,);
+        //    //response.EnsureSuccessStatusCode();
+
+        //    // return URI of the created resource.
+        //    return response.Headers.Location;
+        //}
+
+        public static async Task<int>PostCustomerAsync(Customer customer)
+        {
+            AdventureWorksContext context = new AdventureWorksContext();
+            context.Customer.Add(customer);
+           int x= await context.SaveChangesAsync();
+            return x;
         }
         public static string ConvertJson(string json)
         {
@@ -131,5 +156,6 @@ namespace Import_Export
             }
             return result.ToString().TrimEnd(new char[] { '\r', '\n' });
         }
+
     }
 }

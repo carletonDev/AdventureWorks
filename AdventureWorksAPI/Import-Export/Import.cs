@@ -25,14 +25,29 @@ namespace Import_Export
                     csv.Configuration.HasHeaderRecord = true;
                     var records = csv.GetRecords<Customer>();
 
-                    foreach(var record in records)
+                    if (records.GetEnumerator().MoveNext()==true)
                     {
-                        data.Add(record);
+                        foreach (var record in records)
+                        {
+                            data.Add(record);
+                        }
+                    }
+                    else
+                    {
+                        ImportToAPI(csv.GetRecord<Customer>());   
                     }
                 }
                  
             }
                 return data;
+        }
+        public static async void ImportToAPI(Customer customer)
+        {
+
+          
+             await Export.PostCustomerAsync(customer);
+
+
         }
 
     }

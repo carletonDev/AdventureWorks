@@ -71,12 +71,14 @@ namespace Import_Export
         static void GetCustomerNames()
         {
 
-            List<Customer> list = Import.ImportCustomersHelper().ToList(); 
+            List<Customer> list = Import.ImportCustomersHelper().ToList();
 
-            foreach (Customer customer in list)
-            {
-                Console.WriteLine(customer.firstName + customer.lastName);
-            }
+            //foreach (Customer customer in list)
+            //{
+            //    Console.WriteLine(customer.firstName + customer.lastName);
+            //}
+
+
 
         }
     }
