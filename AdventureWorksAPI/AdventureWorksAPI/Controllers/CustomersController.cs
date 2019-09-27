@@ -58,7 +58,7 @@ namespace AdventureWorksAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != customer.CustomerId)
+            if (id != customer.customerId)
             {
                 return BadRequest();
             }
@@ -96,7 +96,7 @@ namespace AdventureWorksAPI.Controllers
             _context.Customer.Add(customer);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
+            return CreatedAtAction("GetCustomer", new { id = customer.customerId }, customer);
         }
 
         // DELETE: api/Customers/5
@@ -122,7 +122,7 @@ namespace AdventureWorksAPI.Controllers
 
         private bool CustomerExists(int id)
         {
-            return _context.Customer.Any(e => e.CustomerId == id);
+            return _context.Customer.Any(e => e.customerId == id);
         }
     }
 }

@@ -31,6 +31,10 @@ namespace Import_Export
             {
                 Export.ExportCustomers();
             }
+            else
+            {
+
+            }
             
             //continue
             Console.WriteLine("Try the method you wrote?");
@@ -67,12 +71,13 @@ namespace Import_Export
         static void GetCustomerNames()
         {
 
-            List<Customer> list = Import.ImportCustomers().ToList();
+            List<Customer> list = Import.ImportCustomersHelper().ToList(); 
 
             foreach (Customer customer in list)
             {
-                Console.WriteLine(customer.FirstName + customer.LastName);
+                Console.WriteLine(customer.firstName + customer.lastName);
             }
+
         }
     }
 }

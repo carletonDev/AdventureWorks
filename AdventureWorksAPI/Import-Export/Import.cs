@@ -13,15 +13,26 @@ namespace Import_Export
         {
           
         }
-        public static IList<Customer> ImportCustomers()
+        public static List<Customer> ImportCustomersHelper()
         {
-            IList<Customer> data = null;
-            using(var stream = new FileStream("C:\\Customers\\allCustomers.csv", FileMode.Open, FileAccess.Read))
+            List<Customer> data = new List<Customer>();
+
+            using (var stream = new StreamReader("C:\\Customers\\allCustomers.csv"))
             {
-                var cs = new CsvSerializer<Customer>();
-                data = cs.Deserialize(stream);
+               using (var csv = new CsvReader(stream))
+                {
+                    csv.Configuration.Delimiter = "|";
+                    csv.Configuration.HasHeaderRecord = true;
+                    var records = csv.GetRecords<Customer>();
+
+                    foreach(var record in records)
+                    {
+                        data.Add(record);
+                    }
+                }
+                 
             }
-            return data;
+                return data;
         }
 
     }

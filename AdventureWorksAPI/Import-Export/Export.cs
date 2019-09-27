@@ -98,7 +98,7 @@ namespace Import_Export
         }
         public static string ConvertJson(string json)
         {
-            XmlNode xml = JsonConvert.DeserializeXmlNode(json);
+            XmlNode xml = JsonConvert.DeserializeXmlNode("{records:{record:" + json + "}}");
 
             XmlDocument xmldoc = new XmlDocument();
             //Create XmlDoc Object
@@ -130,7 +130,6 @@ namespace Import_Export
                 }
             }
             return result.ToString().TrimEnd(new char[] { '\r', '\n' });
-            //return result.ToString();
         }
     }
 }

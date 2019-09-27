@@ -110,61 +110,61 @@ namespace AdventureWorksAPI.Models
             {
                 entity.ToTable("Customer", "SalesLT");
 
-                entity.HasIndex(e => e.EmailAddress);
+                entity.HasIndex(e => e.emailAddress);
 
-                entity.HasIndex(e => e.Rowguid)
+                entity.HasIndex(e => e.rowguid)
                     .HasName("AK_Customer_rowguid")
                     .IsUnique();
 
-                entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
+                entity.Property(e => e.customerId).HasColumnName("CustomerID");
 
-                entity.Property(e => e.CompanyName).HasMaxLength(128);
+                entity.Property(e => e.companyName).HasMaxLength(128);
 
-                entity.Property(e => e.EmailAddress).HasMaxLength(50);
+                entity.Property(e => e.emailAddress).HasMaxLength(50);
 
-                entity.Property(e => e.FirstName)
+                entity.Property(e => e.firstName)
                     .IsRequired()
                     .HasColumnType("Name")
                     .HasMaxLength(50);
 
-                entity.Property(e => e.LastName)
+                entity.Property(e => e.lastName)
                     .IsRequired()
                     .HasColumnType("Name")
                     .HasMaxLength(50);
 
-                entity.Property(e => e.MiddleName)
+                entity.Property(e => e.middleName)
                     .HasColumnType("Name")
                     .HasMaxLength(50);
 
-                entity.Property(e => e.ModifiedDate)
+                entity.Property(e => e.modifiedDate)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.NameStyle).HasColumnType("NameStyle");
+                entity.Property(e => e.nameStyle).HasColumnType("NameStyle");
 
-                entity.Property(e => e.PasswordHash)
+                entity.Property(e => e.passwordHash)
                     .IsRequired()
                     .HasMaxLength(128)
                     .IsUnicode(false);
 
-                entity.Property(e => e.PasswordSalt)
+                entity.Property(e => e.passwordSalt)
                     .IsRequired()
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Phone)
+                entity.Property(e => e.phone)
                     .HasColumnType("Phone")
                     .HasMaxLength(25);
 
-                entity.Property(e => e.Rowguid)
+                entity.Property(e => e.rowguid)
                     .HasColumnName("rowguid")
                     .HasDefaultValueSql("(newid())");
 
-                entity.Property(e => e.SalesPerson).HasMaxLength(256);
+                entity.Property(e => e.salesPerson).HasMaxLength(256);
 
-                entity.Property(e => e.Suffix).HasMaxLength(10);
+                entity.Property(e => e.suffix).HasMaxLength(10);
 
-                entity.Property(e => e.Title).HasMaxLength(8);
+                entity.Property(e => e.title).HasMaxLength(8);
             });
 
             modelBuilder.Entity<CustomerAddress>(entity =>
@@ -200,7 +200,7 @@ namespace AdventureWorksAPI.Models
                     .OnDelete(DeleteBehavior.ClientSetNull);
 
                 entity.HasOne(d => d.Customer)
-                    .WithMany(p => p.CustomerAddress)
+                    .WithMany(p => p.customerAddress)
                     .HasForeignKey(d => d.CustomerId)
                     .OnDelete(DeleteBehavior.ClientSetNull);
             });
@@ -547,7 +547,7 @@ namespace AdventureWorksAPI.Models
                     .HasConstraintName("FK_SalesOrderHeader_Address_BillTo_AddressID");
 
                 entity.HasOne(d => d.Customer)
-                    .WithMany(p => p.SalesOrderHeader)
+                    .WithMany(p => p.salesOrderHeader)
                     .HasForeignKey(d => d.CustomerId)
                     .OnDelete(DeleteBehavior.ClientSetNull);
 
