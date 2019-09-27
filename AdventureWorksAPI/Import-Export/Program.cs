@@ -6,8 +6,9 @@ using System.Linq;
 
 namespace Import_Export
 {
-    class Program
+    public class Program
     {
+      public static AdventureWorksContext context { get; set; }
         static void Main(string[] args)
         {
             //Get a users choice either Import or Export
@@ -16,14 +17,24 @@ namespace Import_Export
             //if Import pick a file to read from delimited by pipe to post to database
             //when import is selected pick a database type
 
+            string answer = "";
 
             //Testing
-            Export.ExportCustomers();
-            Export.ExportCustomersJSON();
+            Console.WriteLine("Run Json or CSV Serializer?");
+            answer = Console.ReadLine().ToLower();
 
+            if (answer == "json")
+            {
+                Export.ExportCustomersJSON();
+            }
+            else if (answer == "regular")
+            {
+                Export.ExportCustomers();
+            }
+            
             //continue
             Console.WriteLine("Try the method you wrote?");
-            string answer = Console.ReadLine().ToLower();
+            answer = Console.ReadLine().ToLower();
 
             if (answer == "yes")
             {
@@ -46,8 +57,8 @@ namespace Import_Export
         }
         static void ErrorCSVWriter()
         {
-            ErrorLogsController controller = new ErrorLogsController();
-            List<ErrorLog> errorList = controller.GetErrorLog().ToList();
+            context = new AdventureWorksContext();
+            List<ErrorLog> errorList = context.ErrorLog.ToList();
             foreach (ErrorLog error in errorList)
             {
                 FileWriting.WriteError(error);

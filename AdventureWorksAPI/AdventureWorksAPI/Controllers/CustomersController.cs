@@ -22,10 +22,6 @@ namespace AdventureWorksAPI.Controllers
             _context = context;
         }
 
-        public CustomersController()
-        {
-        }
-
         // GET: api/Customers
         [HttpGet]
         [EnableCors("AdventureWorksAPI")]
