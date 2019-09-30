@@ -42,14 +42,24 @@ namespace Import_Export
             string csv = ConvertJson(JsonConvert.SerializeObject(customer));
             FileWriting.WriteStringToFile(csv, "C:\\Customers\\allCustomers.csv");
         }
-        public static void ExportCustomersJSON()
+        public static string ExporttoJSON(string modelName, string option)
         {
             //pass in parameters
-            string json = JsonResult("api/customers").Result;
+            string json = JsonResult("api/"+modelName).Result;
             //convert json to xml to csv with pipe delimeter
-            string csv= ConvertJson(json);
+            string csv = ConvertJson(json);
             //use file write method to write string to file
-            FileWriting.WriteStringToFile(csv, "C:\\Customers\\allCustomers.csv");
+
+            if (option == "json")
+            {
+                FileWriting.WriteStringToFile(json, "C:\\Json\\" + modelName+".json");
+            }
+            else if (option == "csv")
+            {
+                FileWriting.WriteStringToFile(csv, "C:\\Csv\\" + modelName+".csv");
+            }
+
+            return json;
 
         }
         static void ExportAddresses()
@@ -96,7 +106,7 @@ namespace Import_Export
         public static async Task<string> JsonResult(string url)
         {
             client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync("https://website20190926112338.azurewebsites.net/"+ url);
+            HttpResponseMessage response = await client.GetAsync("https://adventureworksc.azurewebsites.net/" + url);
             return  await response.Content.ReadAsStringAsync(); 
 
             
@@ -114,13 +124,7 @@ namespace Import_Export
         //    return response.Headers.Location;
         //}
 
-        public static async Task<int>PostCustomerAsync(Customer customer)
-        {
-            AdventureWorksContext context = new AdventureWorksContext();
-            context.Customer.Add(customer);
-           int x= await context.SaveChangesAsync();
-            return x;
-        }
+      
         public static string ConvertJson(string json)
         {
             XmlNode xml = JsonConvert.DeserializeXmlNode("{records:{record:" + json + "}}");

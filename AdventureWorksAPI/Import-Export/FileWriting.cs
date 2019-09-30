@@ -19,7 +19,7 @@ namespace Import_Export
         }
         public static void WriteStringToFile(string value, string path)
         {
-            using (StreamWriter sw = new StreamWriter(path))
+            using (StreamWriter sw = File.AppendText(path))
             {
                 sw.WriteLine(value);
             }

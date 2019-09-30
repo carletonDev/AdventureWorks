@@ -11,48 +11,10 @@ namespace Import_Export
       public static AdventureWorksContext context { get; set; }
         static void Main(string[] args)
         {
-            //Get a users choice either Import or Export
-            //if Export pick either all or a select group of database objects
+            //run write all to json folder to export to firebase realtime, and maybe link ef to it
+           var check= FirebaseDatabase.WriteAllToJson();
 
-            //if Import pick a file to read from delimited by pipe to post to database
-            //when import is selected pick a database type
-
-            string answer = "";
-
-            //Testing
-            Console.WriteLine("Run Json or CSV Serializer?");
-            answer = Console.ReadLine().ToLower();
-
-            if (answer == "json")
-            {
-                Export.ExportCustomersJSON();
-            }
-            else if (answer == "regular")
-            {
-                Export.ExportCustomers();
-            }
-            else
-            {
-
-            }
-            
-            //continue
-            Console.WriteLine("Try the method you wrote?");
-            answer = Console.ReadLine().ToLower();
-
-            if (answer == "yes")
-            {
-                ErrorCSVWriter();
-            }
-            else if (answer == "no")
-            {
-                Console.ReadKey();
-            }
-            else if (answer =="import")
-            {
-                GetCustomerNames();
-            }
-
+            Console.WriteLine(check);
         }
         static void Choice(string value)
         {
@@ -73,10 +35,10 @@ namespace Import_Export
 
             List<Customer> list = Import.ImportCustomersHelper().ToList();
 
-            //foreach (Customer customer in list)
-            //{
-            //    Console.WriteLine(customer.firstName + customer.lastName);
-            //}
+            foreach (Customer customer in list)
+            {
+                Console.WriteLine(customer.firstName +" "+ customer.lastName);
+            }
 
 
 
