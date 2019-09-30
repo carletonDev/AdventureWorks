@@ -36,7 +36,7 @@ namespace AdventureWorksAPI
             {
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
-            services.AddDbContext<AdventureWorksContext>(options => options.UseSqlServer("Data Source=carletonserver.database.windows.net;Initial Catalog=AdventureWorks;User ID=devGodCarl;Password=5611S@ddle;Connect Timeout=30;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;"));
+            services.AddDbContext<AdventureWorksContext>(options => options.UseSqlServer("Data Source=advworkscarl.database.windows.net;Initial Catalog=AdventureWorks;User ID=dev;Password=5611S@ddle;Connect Timeout=30;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
             services.AddCors(options =>
             {
                 options.AddPolicy(PolicyName,
